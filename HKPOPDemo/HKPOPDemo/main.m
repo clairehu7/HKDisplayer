@@ -1,6 +1,6 @@
 //
 //  main.m
-//  HKPopViewDemo
+//  HKPOPDemo
 //
 //  Created by hukaiyin on 16/9/11.
 //  Copyright © 2016年 HKY. All rights reserved.

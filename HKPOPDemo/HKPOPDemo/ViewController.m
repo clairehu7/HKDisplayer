@@ -1,13 +1,13 @@
 //
 //  ViewController.m
-//  HKPopViewDemo
+//  HKPOPDemo
 //
 //  Created by hukaiyin on 16/9/11.
 //  Copyright © 2016年 HKY. All rights reserved.
 //
 
 #import "ViewController.h"
-#import "HKPopView.h"
+#import "HKPOP.h"
 
 @interface ViewController ()
 
@@ -29,7 +29,7 @@
 - (IBAction)test1TUI:(UIButton *)sender {
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 200, 100)];
     view.backgroundColor = [UIColor whiteColor];
-    [HKPopView shareManager].centerView = view;
+    [HKPOP shareManager].centerView = view;
 }
 
 - (IBAction)test2TUI:(UIButton *)sender {

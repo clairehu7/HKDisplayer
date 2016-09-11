@@ -1,14 +1,14 @@
 //
-//  HKPopView.m
-//  HKPopViewDemo
+//  HKPOP.m
+//  HKPOPDemo
 //
 //  Created by hukaiyin on 16/9/11.
 //  Copyright © 2016年 HKY. All rights reserved.
 //
 
-#import "HKPopView.h"
+#import "HKPOP.h"
 
-@interface HKPopView ()<UIGestureRecognizerDelegate>
+@interface HKPOP ()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UIButton *closeBtn;
 @property (nonatomic, assign) BOOL haveCloseBtn;
@@ -16,9 +16,9 @@
 @property (nonatomic, assign )BOOL haveGrayBack;
 @end
 
-@implementation HKPopView
-+(HKPopView*)shareManager {
-    static HKPopView *instance=nil;
+@implementation HKPOP
++(HKPOP*)shareManager {
+    static HKPOP *instance=nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
         instance=[[self alloc]init];

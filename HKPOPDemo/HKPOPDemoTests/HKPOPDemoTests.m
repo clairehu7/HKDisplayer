@@ -1,6 +1,6 @@
 //
-//  HKPopViewDemoTests.m
-//  HKPopViewDemoTests
+//  HKPOPDemoTests.m
+//  HKPOPDemoTests
 //
 //  Created by hukaiyin on 16/9/11.
 //  Copyright © 2016年 HKY. All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface HKPopViewDemoTests : XCTestCase
+@interface HKPOPDemoTests : XCTestCase
 
 @end
 
-@implementation HKPopViewDemoTests
+@implementation HKPOPDemoTests
 
 - (void)setUp {
     [super setUp];
