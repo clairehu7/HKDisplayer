@@ -29,12 +29,17 @@
 - (IBAction)test1TUI:(UIButton *)sender {
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 200, 100)];
     view.center = [UIApplication sharedApplication].keyWindow.center;
-    view.backgroundColor = [UIColor whiteColor];
+    view.backgroundColor = [self randomColor];
+    
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
+    btn.backgroundColor = [UIColor whiteColor];
+    [btn addTarget:self action:@selector(test2TUI:) forControlEvents:UIControlEventTouchUpInside];
+    
     [HKPOP showView:view];
 }
 
 - (IBAction)test2TUI:(UIButton *)sender {
-    
+    [HKPOP remove];
 }
 
 -(UIColor *)randomColor {

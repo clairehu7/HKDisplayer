@@ -19,4 +19,12 @@
  */
 + (instancetype)showView:(UIView *)view;
 
+/**
+ *  Remove self
+ */
++ (void)remove;
+@end
+
+@interface HKPOPBackgroundView : UIView
+@property (nonatomic, strong) UIColor *color;
 @end

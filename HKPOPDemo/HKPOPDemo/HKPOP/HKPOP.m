@@ -9,41 +9,42 @@
 #import "HKPOP.h"
 
 @interface HKPOP ()<UIGestureRecognizerDelegate>
+
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
-@property (nonatomic, assign) BOOL canTapToClose;
-@property (nonatomic, assign )BOOL haveGrayBack;
 @property (nonatomic, strong) UIView *displayedView;
 
 @end
 
 @implementation HKPOP
 
++ (void)remove {
+    HKPOP *pop = [self shareManager];
+    [pop removeFromSuperview];
+}
+
 + (instancetype)showView:(UIView *)view {
+    HKPOP *pop = [self shareManager];
+    pop.displayedView = view;
+    return  pop;
+}
+
++ (instancetype)shareManager {
     static HKPOP *instance = nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
         instance=[[self alloc]init];
     });
-    [instance updateCanTapToClose:YES haveGrayBack:YES];
-    instance.displayedView = view;
-    return  instance;
+    return instance;
 }
 
 - (instancetype)init {
     self = [super init];
     if (self) {
         self.frame = [UIScreen mainScreen].bounds;
-        self.backgroundColor = [UIColor colorWithWhite:0. alpha:.6];
-        self.canTapToClose = YES;
-        self.haveGrayBack = YES;
     }
     return self;
 }
 
-- (void)updateCanTapToClose:(BOOL)canTapToClose haveGrayBack:(BOOL)haveGrayBack {
-    self.canTapToClose = canTapToClose;
-    self.haveGrayBack = haveGrayBack;
-}
 #pragma mark - Setters & Getters
 
 - (void)setDisplayedView:(UIView *)displayedView {
@@ -52,6 +53,9 @@
         _displayedView = nil;
     }
     _displayedView = displayedView;
+    
+    self.frame = _displayedView.frame;
+    _displayedView.frame = CGRectMake(0, 0, _displayedView.frame.size.width, _displayedView.frame.size.height);
     [self addSubview:_displayedView];
     [[UIApplication sharedApplication].keyWindow addSubview:self];
 
@@ -64,23 +68,6 @@
     [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
     animation.values = values;
     [_displayedView.layer addAnimation:animation forKey:nil];
-}
-
-- (void)setCanTapToClose:(BOOL)canTapToClose {
-    _canTapToClose = canTapToClose;
-    self.tap.enabled = _canTapToClose;
-}
-
-- (void)setHaveGrayBack:(BOOL)haveGrayBack {
-    _haveGrayBack = haveGrayBack;
-    if (!_haveGrayBack) {
-        self.frame = self.displayedView.frame;
-        self.backgroundColor = [UIColor clearColor];
-        self.displayedView.frame = CGRectMake(0, 0, self.displayedView.frame.size.width, self.displayedView.frame.size.height);
-    } else {
-        self.frame = [UIScreen mainScreen].bounds;
-        self.backgroundColor = [UIColor colorWithWhite:0. alpha:.6];
-    }
 }
 
 - (UITapGestureRecognizer *)tap {
@@ -101,4 +88,12 @@
     return YES;
 }
 
+@end
+
+@implementation HKPOPBackgroundView
+
+- (void)setColor:(UIColor *)color {
+    _color = color;
+    self.backgroundColor = color;
+}
 @end
