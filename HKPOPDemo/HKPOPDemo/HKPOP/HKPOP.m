@@ -9,10 +9,7 @@
 #import "HKPOP.h"
 
 @interface HKPOP ()<UIGestureRecognizerDelegate>
-
-@property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UIView *displayedView;
-
 @end
 
 @implementation HKPOP
@@ -68,24 +65,6 @@
     [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
     animation.values = values;
     [_displayedView.layer addAnimation:animation forKey:nil];
-}
-
-- (UITapGestureRecognizer *)tap {
-    if (!_tap) {
-        _tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removeFromSuperview)];
-        _tap.delegate = self;
-        [self addGestureRecognizer:_tap];
-    }
-    return _tap;
-}
-
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    CGPoint currentPoint = [gestureRecognizer locationInView:self];
-    if (CGRectContainsPoint(self.displayedView.frame, currentPoint) ) {
-        return NO;
-    }
-    return YES;
 }
 
 @end
