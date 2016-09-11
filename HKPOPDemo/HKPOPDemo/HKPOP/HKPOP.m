@@ -9,20 +9,18 @@
 #import "HKPOP.h"
 
 @interface HKPOP ()<UIGestureRecognizerDelegate>
+
 @property (nonatomic, strong) UIView *displayedView;
+@property (nonatomic, weak) NSTimer *showTimer;
+
 @end
 
 @implementation HKPOP
 
-+ (void)remove {
-    HKPOP *pop = [self shareManager];
-    [pop removeFromSuperview];
-}
+#pragma mark - Life Cycle
 
-+ (instancetype)showView:(UIView *)view {
-    HKPOP *pop = [self shareManager];
-    pop.displayedView = view;
-    return  pop;
+- (instancetype)init {
+    return [self initWithFrame:[UIScreen mainScreen].bounds];
 }
 
 + (instancetype)shareManager {
@@ -34,28 +32,54 @@
     return instance;
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.frame = [UIScreen mainScreen].bounds;
-    }
-    return self;
++ (instancetype)showView:(UIView *)view {
+    HKPOP *pop = [self shareManager];
+    pop.displayedView = view;
+    [pop commonInit];
+    return pop;
 }
 
-#pragma mark - Setters & Getters
+- (void)commonInit {
+    self.showTime = 3;
+    self.style = HKPOPDisplayStyleShowForAWhile;
+}
 
-- (void)setDisplayedView:(UIView *)displayedView {
-    if (_displayedView) {
-        [_displayedView removeFromSuperview];
-        _displayedView = nil;
++ (void)remove {
+    HKPOP *pop = [self shareManager];
+    [pop removeFromSuperview];
+}
+
+//-(void)dealloc {
+//    [self invalidTimer];
+//}
+//
+//-(void)removeFromSuperview {
+//    [super removeFromSuperview];
+//    [self invalidTimer];
+//}
+
+#pragma mark - Timer
+
+- (void)timerRepeat {
+    self.showTime --;
+    if (self.showTime <= 0) {
+        [HKPOP remove];
+        [self invalidTimer];
     }
-    _displayedView = displayedView;
-    
-    self.frame = _displayedView.frame;
-    _displayedView.frame = CGRectMake(0, 0, _displayedView.frame.size.width, _displayedView.frame.size.height);
-    [self addSubview:_displayedView];
-    [[UIApplication sharedApplication].keyWindow addSubview:self];
+}
 
+- (void)invalidTimer {
+    [self.showTimer invalidate];
+    self.showTimer = nil;
+}
+
+#pragma mark - Animation
+
+- (void)showWithAnimated:(BOOL)animated {
+    if (!animated) {
+        return;
+    }
+    //TODO:多种show方式（上浮/下沉/弹出/淡入淡出）
     CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
     animation.duration = 0.2;
     
@@ -67,12 +91,43 @@
     [_displayedView.layer addAnimation:animation forKey:nil];
 }
 
-@end
+#pragma mark - Setters & Getters
 
-@implementation HKPOPBackgroundView
-
-- (void)setColor:(UIColor *)color {
-    _color = color;
-    self.backgroundColor = color;
+- (void)setShowTime:(NSTimeInterval)showTime {
+    _showTime = showTime;
+    [self showTimer];
 }
+
+- (NSTimer *)showTimer {
+    if (!_showTimer) {
+         NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerRepeat) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+        _showTimer = timer;
+    }
+    return _showTimer;
+}
+
+- (void)setDisplayedView:(UIView *)displayedView {
+    if (_displayedView) {
+        [_displayedView removeFromSuperview];
+        _displayedView = nil;
+    }
+    _displayedView = displayedView;
+    
+    self.frame = _displayedView.frame;
+    _displayedView.frame = (CGRect){0,0,_displayedView.frame.size};
+    [self addSubview:_displayedView];
+    [[UIApplication sharedApplication].keyWindow addSubview:self];
+    
+    //TODO: 传参暂时为YES
+    [self showWithAnimated:YES];
+}
+
+- (void)setStyle:(HKPOPDisplayStyle)style {
+    _style = style;
+    if (_style != HKPOPDisplayStyleShowForAWhile) {
+        [self invalidTimer];
+    }
+}
+
 @end

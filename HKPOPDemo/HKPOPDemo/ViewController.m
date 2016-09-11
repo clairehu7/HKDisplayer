@@ -35,7 +35,8 @@
     btn.backgroundColor = [UIColor whiteColor];
     [btn addTarget:self action:@selector(test2TUI:) forControlEvents:UIControlEventTouchUpInside];
     
-    [HKPOP showView:view];
+    HKPOP *pop = [HKPOP showView:view];
+//    pop.style = HKPOPDisplayStyleKeep;
 }
 
 - (IBAction)test2TUI:(UIButton *)sender {

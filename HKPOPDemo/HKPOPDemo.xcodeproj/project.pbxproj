@@ -85,14 +85,8 @@
 			isa = PBXGroup;
 			children = (
 				77CEBDDF1D856978008496EE /* HKPOP */,
-				77CEBDBD1D856919008496EE /* AppDelegate.h */,
-				77CEBDBE1D856919008496EE /* AppDelegate.m */,
 				77CEBDC01D856919008496EE /* ViewController.h */,
 				77CEBDC11D856919008496EE /* ViewController.m */,
-				77CEBDC31D856919008496EE /* Main.storyboard */,
-				77CEBDC61D856919008496EE /* Assets.xcassets */,
-				77CEBDC81D856919008496EE /* LaunchScreen.storyboard */,
-				77CEBDCB1D856919008496EE /* Info.plist */,
 				77CEBDBA1D856919008496EE /* Supporting Files */,
 			);
 			path = HKPOPDemo;
@@ -101,6 +95,12 @@
 		77CEBDBA1D856919008496EE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				77CEBDBD1D856919008496EE /* AppDelegate.h */,
+				77CEBDBE1D856919008496EE /* AppDelegate.m */,
+				77CEBDC31D856919008496EE /* Main.storyboard */,
+				77CEBDC61D856919008496EE /* Assets.xcassets */,
+				77CEBDC81D856919008496EE /* LaunchScreen.storyboard */,
+				77CEBDCB1D856919008496EE /* Info.plist */,
 				77CEBDBB1D856919008496EE /* main.m */,
 			);
 			name = "Supporting Files";
