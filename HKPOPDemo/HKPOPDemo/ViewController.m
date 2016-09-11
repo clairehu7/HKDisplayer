@@ -28,8 +28,9 @@
 #pragma mark - HKTest
 - (IBAction)test1TUI:(UIButton *)sender {
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 200, 100)];
+    view.center = [UIApplication sharedApplication].keyWindow.center;
     view.backgroundColor = [UIColor whiteColor];
-    [HKPOP shareManager].centerView = view;
+    [HKPOP showView:view];
 }
 
 - (IBAction)test2TUI:(UIButton *)sender {

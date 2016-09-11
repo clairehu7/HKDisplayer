@@ -10,8 +10,13 @@
 
 @interface HKPOP : UIView
 
-+(HKPOP *)shareManager;
-@property (nonatomic, strong) UIView *centerView;/**<需要显示的 View*/
-- (void)updateCanTapToClose:(BOOL)canTapToClose haveCloseBtn:(BOOL)haveCloseBtn haveGrayBack:(BOOL)haveGrayBack;
+/**
+ *  creates a new POP
+ *
+ *  @param view The view you want to show
+ *
+ *  @return the created POP
+ */
++ (instancetype)showView:(UIView *)view;
 
 @end
