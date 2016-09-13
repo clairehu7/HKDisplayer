@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7723B8031D87D2F600BCFDD0 /* MsgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7723B8021D87D2F600BCFDD0 /* MsgView.m */; };
 		779956421D8680C700CF4A1B /* UIColor+Extends.m in Sources */ = {isa = PBXBuildFile; fileRef = 779956411D8680C700CF4A1B /* UIColor+Extends.m */; };
 		77CEBDBC1D856919008496EE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CEBDBB1D856919008496EE /* main.m */; };
 		77CEBDBF1D856919008496EE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CEBDBE1D856919008496EE /* AppDelegate.m */; };
@@ -29,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7723B8011D87D2F600BCFDD0 /* MsgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgView.h; sourceTree = "<group>"; };
+		7723B8021D87D2F600BCFDD0 /* MsgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgView.m; sourceTree = "<group>"; };
 		779956401D8680C700CF4A1B /* UIColor+Extends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extends.h"; sourceTree = "<group>"; };
 		779956411D8680C700CF4A1B /* UIColor+Extends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extends.m"; sourceTree = "<group>"; };
 		77CEBDB71D856919008496EE /* HKPOPDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HKPOPDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +72,8 @@
 		779956431D86839F00CF4A1B /* TestView */ = {
 			isa = PBXGroup;
 			children = (
+				7723B8011D87D2F600BCFDD0 /* MsgView.h */,
+				7723B8021D87D2F600BCFDD0 /* MsgView.m */,
 			);
 			path = TestView;
 			sourceTree = "<group>";
@@ -237,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7723B8031D87D2F600BCFDD0 /* MsgView.m in Sources */,
 				77CEBDC21D856919008496EE /* ViewController.m in Sources */,
 				77CEBDBF1D856919008496EE /* AppDelegate.m in Sources */,
 				77CEBDBC1D856919008496EE /* main.m in Sources */,
