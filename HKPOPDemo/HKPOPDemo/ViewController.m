@@ -8,7 +8,10 @@
 
 #import "ViewController.h"
 #import "HKPOP.h"
-#import "UIColor+Extends.h"
+
+//Test views
+#import "MsgView.h"
+
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -27,19 +30,17 @@
 }
 
 #pragma mark - HKTest
+
 - (void)test0{
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 200, 100)];
+    MsgView *view = [[MsgView alloc]initWithFrame:CGRectMake(0, 0, 200, 100)];
     view.center = [UIApplication sharedApplication].keyWindow.center;
-    view.backgroundColor = [UIColor randomColor];
-    
-    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(150, 0, 50, 50)];
-    [btn addTarget:self action:@selector(test1) forControlEvents:UIControlEventTouchUpInside];
-    [btn setImage:[UIImage imageNamed:@"icon_x"] forState:UIControlStateNormal];
-    [view addSubview: btn];
-    
-//    HKPOP *pop = [HKPOP showView:view];
-    
-    [HKPOP showView:view];
+    __weak ViewController *weakSelf = self;
+    view.closeHandler = ^{
+        __strong ViewController *strongSelf = weakSelf;
+        [strongSelf test1];
+    };
+    HKPOP *pop = [HKPOP showView:view];
+    pop.displayStyle = HKPOPDisplayForAWhile;
 }
 
 - (void)test1{

@@ -46,7 +46,10 @@
 
 + (void)remove {
     HKPOP *pop = [self shareManager];
-    [pop removeFromSuperview];
+    [pop.displayedView removeFromSuperview];
+    if (!pop.subviews.count) {
+        [pop removeFromSuperview];
+    }
 }
 
 //-(void)dealloc {
@@ -75,10 +78,8 @@
 
 #pragma mark - Animation
 
-- (void)showWithAnimated:(BOOL)animated {
-    if (!animated) {
-        return;
-    }
+- (void)showWithAnimated:(HKPOPAnimationStyle)animated {
+    
     //TODO:多种show方式（上浮/下沉/弹出/淡入淡出）
     CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
     animation.duration = 0.2;
@@ -90,7 +91,6 @@
     animation.values = values;
     [_displayedView.layer addAnimation:animation forKey:nil];
 }
-
 #pragma mark - Setters & Getters
 
 - (void)setShowTime:(NSTimeInterval)showTime {
@@ -119,8 +119,7 @@
     [self addSubview:_displayedView];
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     
-    //!!!:传参暂时为YES
-    [self showWithAnimated:YES];
+    [self showWithAnimated:HKPOPAnimationStyleDefault];
 }
 
 

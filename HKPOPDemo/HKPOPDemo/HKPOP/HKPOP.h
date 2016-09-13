@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, HKPOPAnimationStyle) {
+    HKPOPAnimationStyleNone = -1,
+    HKPOPAnimationStyleDefault,
+//    HKPOPAnimationStyle
+};
+
 typedef NS_ENUM(NSInteger, HKPOPDisplay) {
     //Keep display before use [HKPOP remove]
     HKPOPDisplayKeep,
