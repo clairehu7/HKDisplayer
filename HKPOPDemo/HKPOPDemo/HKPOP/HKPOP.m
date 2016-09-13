@@ -41,7 +41,7 @@
 
 - (void)commonInit {
     self.showTime = 3;
-    self.style = HKPOPDisplayStyleShowForAWhile;
+    self.displayStyle = HKPOPDisplayForAWhile;
 }
 
 + (void)remove {
@@ -119,13 +119,14 @@
     [self addSubview:_displayedView];
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     
-    //TODO: 传参暂时为YES
+    //!!!:传参暂时为YES
     [self showWithAnimated:YES];
 }
 
-- (void)setStyle:(HKPOPDisplayStyle)style {
-    _style = style;
-    if (_style != HKPOPDisplayStyleShowForAWhile) {
+
+- (void)setDisplayStyle:(HKPOPDisplay)displayStyle {
+    _displayStyle = displayStyle;
+    if (_displayStyle != HKPOPDisplayForAWhile) {
         [self invalidTimer];
     }
 }

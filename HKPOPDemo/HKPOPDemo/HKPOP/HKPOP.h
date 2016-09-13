@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger, HKPOPDisplayStyle) {
+typedef NS_ENUM(NSInteger, HKPOPDisplay) {
     //Keep display before use [HKPOP remove]
-    HKPOPDisplayStyleKeep,
+    HKPOPDisplayKeep,
     //Remove by self after A while, set showTime to change time
-    HKPOPDisplayStyleShowForAWhile
+    HKPOPDisplayForAWhile
 };
 
 @interface HKPOP : UIView
@@ -31,7 +31,7 @@ typedef NS_ENUM(NSInteger, HKPOPDisplayStyle) {
  */
 + (void)remove;
 
-@property (nonatomic, assign) HKPOPDisplayStyle style;/**< Default is HKPOPDisplayStyleAWhile */
+@property (nonatomic, assign) HKPOPDisplay displayStyle;/**< Default is HKPOPDisplayForAWhile */
 
 @property (nonatomic, assign) NSTimeInterval showTime;/**< default is 3 seconds*/
 

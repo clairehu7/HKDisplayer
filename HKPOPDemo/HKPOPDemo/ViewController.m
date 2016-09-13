@@ -8,8 +8,9 @@
 
 #import "ViewController.h"
 #import "HKPOP.h"
+#import "UIColor+Extends.h"
 
-@interface ViewController ()
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
 
@@ -26,27 +27,56 @@
 }
 
 #pragma mark - HKTest
-- (IBAction)test1TUI:(UIButton *)sender {
+- (void)test0{
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 200, 100)];
     view.center = [UIApplication sharedApplication].keyWindow.center;
-    view.backgroundColor = [self randomColor];
+    view.backgroundColor = [UIColor randomColor];
     
-    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
-    btn.backgroundColor = [UIColor whiteColor];
-    [btn addTarget:self action:@selector(test2TUI:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(150, 0, 50, 50)];
+    [btn addTarget:self action:@selector(test1) forControlEvents:UIControlEventTouchUpInside];
+    [btn setImage:[UIImage imageNamed:@"icon_x"] forState:UIControlStateNormal];
+    [view addSubview: btn];
     
-    HKPOP *pop = [HKPOP showView:view];
-//    pop.style = HKPOPDisplayStyleKeep;
+//    HKPOP *pop = [HKPOP showView:view];
+    
+    [HKPOP showView:view];
 }
 
-- (IBAction)test2TUI:(UIButton *)sender {
+- (void)test1{
     [HKPOP remove];
 }
 
--(UIColor *)randomColor {
-    CGFloat hue = ( arc4random() % 256 / 256.0 );
-    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;
-    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;
-    return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.row) {
+        case 0: {
+            [self test0];
+            break;
+        }
+        case 1: {
+            [self test1];
+            break;
+        }
+        case 2: {
+            break;
+        }
+            
+        default:
+            break;
+    }
 }
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.textLabel.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
+    return cell;
+}
+
 @end

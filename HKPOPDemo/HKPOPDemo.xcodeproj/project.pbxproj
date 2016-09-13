@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		779956421D8680C700CF4A1B /* UIColor+Extends.m in Sources */ = {isa = PBXBuildFile; fileRef = 779956411D8680C700CF4A1B /* UIColor+Extends.m */; };
 		77CEBDBC1D856919008496EE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CEBDBB1D856919008496EE /* main.m */; };
 		77CEBDBF1D856919008496EE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CEBDBE1D856919008496EE /* AppDelegate.m */; };
 		77CEBDC21D856919008496EE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CEBDC11D856919008496EE /* ViewController.m */; };
@@ -28,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		779956401D8680C700CF4A1B /* UIColor+Extends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extends.h"; sourceTree = "<group>"; };
+		779956411D8680C700CF4A1B /* UIColor+Extends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extends.m"; sourceTree = "<group>"; };
 		77CEBDB71D856919008496EE /* HKPOPDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HKPOPDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CEBDBB1D856919008496EE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		77CEBDBD1D856919008496EE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -63,6 +66,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		779956431D86839F00CF4A1B /* TestView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TestView;
+			sourceTree = "<group>";
+		};
 		77CEBDAE1D856919008496EE = {
 			isa = PBXGroup;
 			children = (
@@ -85,8 +95,11 @@
 			isa = PBXGroup;
 			children = (
 				77CEBDDF1D856978008496EE /* HKPOP */,
+				779956431D86839F00CF4A1B /* TestView */,
 				77CEBDC01D856919008496EE /* ViewController.h */,
 				77CEBDC11D856919008496EE /* ViewController.m */,
+				779956401D8680C700CF4A1B /* UIColor+Extends.h */,
+				779956411D8680C700CF4A1B /* UIColor+Extends.m */,
 				77CEBDBA1D856919008496EE /* Supporting Files */,
 			);
 			path = HKPOPDemo;
@@ -228,6 +241,7 @@
 				77CEBDBF1D856919008496EE /* AppDelegate.m in Sources */,
 				77CEBDBC1D856919008496EE /* main.m in Sources */,
 				77CEBDE21D856978008496EE /* HKPOP.m in Sources */,
+				779956421D8680C700CF4A1B /* UIColor+Extends.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
