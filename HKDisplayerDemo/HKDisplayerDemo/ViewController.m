@@ -44,7 +44,7 @@
 }
 
 - (void)test1{
-    [HKDisplayer remove];
+    [HKDisplayer removeAll];
 }
 
 #pragma mark - UITableViewDelegate

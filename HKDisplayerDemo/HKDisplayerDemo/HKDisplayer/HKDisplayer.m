@@ -8,6 +8,25 @@
 
 #import "HKDisplayer.h"
 
+@interface HKDisplayerManager : NSObject
+@property (nonatomic, strong) NSMutableArray<HKDisplayer *> *showDisplayers;
++ (instancetype)shareManager;
+@end
+
+@implementation HKDisplayerManager
+
++ (instancetype)shareManager {
+    static HKDisplayerManager *instance = nil;
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
+        instance = [[self alloc]init];
+        instance.showDisplayers = [NSMutableArray array];
+    });
+    return instance;
+}
+
+@end
+
 @interface HKDisplayer ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIView *displayedView;
@@ -23,17 +42,9 @@
     return [self initWithFrame:[UIScreen mainScreen].bounds];
 }
 
-+ (instancetype)shareManager {
-    static HKDisplayer *instance = nil;
-    static dispatch_once_t predicate;
-    dispatch_once(&predicate, ^{
-        instance=[[self alloc]init];
-    });
-    return instance;
-}
-
 + (instancetype)showView:(UIView *)view {
-    HKDisplayer *pop = [self shareManager];
+    HKDisplayer *pop = [[self alloc]init];
+    [[HKDisplayerManager shareManager].showDisplayers addObject:pop];
     pop.displayedView = view;
     [pop commonInit];
     return pop;
@@ -44,11 +55,18 @@
     self.displayStyle = HKDisplayerDisplayDefault;
 }
 
-+ (void)remove {
-    HKDisplayer *pop = [self shareManager];
-    [pop.displayedView removeFromSuperview];
-    if (!pop.subviews.count) {
-        [pop removeFromSuperview];
++ (void)removeAll {
+//    HKDisplayer *pop = [self shareManager];
+//    [pop removeFromSuperview];
+    
+//    for (UIView *view in [UIApplication sharedApplication].keyWindow.subviews) {
+//        if ([view isKindOfClass:self]) {
+//            [view removeFromSuperview];
+//        }
+//    }
+    
+    for (HKDisplayer *displayer in [HKDisplayerManager shareManager].showDisplayers) {
+        [displayer removeFromSuperview];
     }
 }
 
@@ -66,9 +84,14 @@
 - (void)timerRepeat {
     self.showTime --;
     if (self.showTime <= 0) {
-        [HKDisplayer remove];
+        [self remove];
         [self invalidTimer];
     }
+}
+
+- (void)remove {
+    [self removeFromSuperview];
+    [[HKDisplayerManager shareManager].showDisplayers removeObject:self];
 }
 
 - (void)invalidTimer {
@@ -92,6 +115,7 @@
     animation.values = values;
     [_displayedView.layer addAnimation:animation forKey:nil];
 }
+
 #pragma mark - Setters & Getters
 
 - (void)setShowTime:(NSTimeInterval)showTime {
