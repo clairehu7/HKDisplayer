@@ -1,13 +1,13 @@
 //
 //  ViewController.m
-//  HKPOPDemo
+//  HKDisplayerDemo
 //
 //  Created by hukaiyin on 16/9/11.
 //  Copyright © 2016年 HKY. All rights reserved.
 //
 
 #import "ViewController.h"
-#import "HKPOP.h"
+#import "HKDisplayer.h"
 
 //Test views
 #import "MsgView.h"
@@ -39,12 +39,12 @@
         __strong ViewController *strongSelf = weakSelf;
         [strongSelf test1];
     };
-    HKPOP *pop = [HKPOP showView:view];
-    pop.displayStyle = HKPOPDisplayForAWhile;
+    HKDisplayer *pop = [HKDisplayer showView:view];
+    pop.displayStyle = HKDisplayerDisplayDefault;
 }
 
 - (void)test1{
-    [HKPOP remove];
+    [HKDisplayer remove];
 }
 
 #pragma mark - UITableViewDelegate
@@ -60,6 +60,7 @@
             break;
         }
         case 2: {
+//            [self test0];
             break;
         }
             

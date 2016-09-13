@@ -1,6 +1,6 @@
 //
 //  MsgView.h
-//  HKPOPDemo
+//  HKDisplayerDemo
 //
 //  Created by hukaiyin on 16/9/13.
 //  Copyright © 2016年 HKY. All rights reserved.

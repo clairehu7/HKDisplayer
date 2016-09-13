@@ -1,6 +1,6 @@
 //
 //  MsgView.m
-//  HKPOPDemo
+//  HKDisplayerDemo
 //
 //  Created by hukaiyin on 16/9/13.
 //  Copyright © 2016年 HKY. All rights reserved.
@@ -60,7 +60,7 @@
     if (!_tipsLabel) {
         _tipsLabel = [[UILabel alloc]initWithFrame:(CGRect){10,self.titleLabel.frame.origin.y + LABELSIZE.height + 5,LABELSIZE}];
         _tipsLabel.textAlignment = NSTextAlignmentCenter;
-        _tipsLabel.font = [UIFont boldSystemFontOfSize:20.];
+        _tipsLabel.font = [UIFont boldSystemFontOfSize:22.];
         _tipsLabel.textColor = [UIColor colorWithRed:1.000 green:0.808 blue:0.149 alpha:1.000];
         _tipsLabel.center = self.center;
         [self addSubview:_tipsLabel];

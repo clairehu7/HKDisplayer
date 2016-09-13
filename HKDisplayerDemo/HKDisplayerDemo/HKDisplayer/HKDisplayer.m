@@ -1,21 +1,21 @@
 //
-//  HKPOP.m
-//  HKPOPDemo
+//  HKDisplayer.m
+//  HKDisplayerDemo
 //
 //  Created by hukaiyin on 16/9/11.
 //  Copyright © 2016年 HKY. All rights reserved.
 //
 
-#import "HKPOP.h"
+#import "HKDisplayer.h"
 
-@interface HKPOP ()<UIGestureRecognizerDelegate>
+@interface HKDisplayer ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIView *displayedView;
 @property (nonatomic, weak) NSTimer *showTimer;
 
 @end
 
-@implementation HKPOP
+@implementation HKDisplayer
 
 #pragma mark - Life Cycle
 
@@ -24,7 +24,7 @@
 }
 
 + (instancetype)shareManager {
-    static HKPOP *instance = nil;
+    static HKDisplayer *instance = nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
         instance=[[self alloc]init];
@@ -33,7 +33,7 @@
 }
 
 + (instancetype)showView:(UIView *)view {
-    HKPOP *pop = [self shareManager];
+    HKDisplayer *pop = [self shareManager];
     pop.displayedView = view;
     [pop commonInit];
     return pop;
@@ -41,11 +41,11 @@
 
 - (void)commonInit {
     self.showTime = 3;
-    self.displayStyle = HKPOPDisplayForAWhile;
+    self.displayStyle = HKDisplayerDisplayDefault;
 }
 
 + (void)remove {
-    HKPOP *pop = [self shareManager];
+    HKDisplayer *pop = [self shareManager];
     [pop.displayedView removeFromSuperview];
     if (!pop.subviews.count) {
         [pop removeFromSuperview];
@@ -66,7 +66,7 @@
 - (void)timerRepeat {
     self.showTime --;
     if (self.showTime <= 0) {
-        [HKPOP remove];
+        [HKDisplayer remove];
         [self invalidTimer];
     }
 }
@@ -78,7 +78,7 @@
 
 #pragma mark - Animation
 
-- (void)showWithAnimated:(HKPOPAnimationStyle)animated {
+- (void)showWithAnimated:(HKDisplayerAnimationStyle)animated {
     
     //TODO:多种show方式（上浮/下沉/弹出/淡入淡出）
     CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
@@ -88,6 +88,7 @@
     [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.4, 0.4, 1.0)]];
     [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1, 1.1, 1.0)]];
     [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
+    
     animation.values = values;
     [_displayedView.layer addAnimation:animation forKey:nil];
 }
@@ -119,13 +120,13 @@
     [self addSubview:_displayedView];
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     
-    [self showWithAnimated:HKPOPAnimationStyleDefault];
+    [self showWithAnimated:HKDisplayerAnimationStyleDefault];
 }
 
 
-- (void)setDisplayStyle:(HKPOPDisplay)displayStyle {
+- (void)setDisplayStyle:(HKDisplayerDisplay)displayStyle {
     _displayStyle = displayStyle;
-    if (_displayStyle != HKPOPDisplayForAWhile) {
+    if (_displayStyle == HKDisplayerDisplayKeep) {
         [self invalidTimer];
     }
 }
