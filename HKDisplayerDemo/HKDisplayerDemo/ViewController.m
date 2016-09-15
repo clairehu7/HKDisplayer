@@ -30,8 +30,7 @@
 }
 
 #pragma mark - HKTest
-
-- (void)test0{
+- (void)test0 {
     MsgView *view = [[MsgView alloc]initWithFrame:CGRectMake(0, 0, 200, 100)];
     view.center = [UIApplication sharedApplication].keyWindow.center;
     __weak ViewController *weakSelf = self;
@@ -39,12 +38,19 @@
         __strong ViewController *strongSelf = weakSelf;
         [strongSelf test1];
     };
-    HKDisplayer *pop = [HKDisplayer showView:view];
-    pop.displayStyle = HKDisplayerDisplayDefault;
+    HKDisplayer *displayer = [HKDisplayer showView:view animationStyle:HKDisplayerAnimationStyleDown];
+    displayer.displayStyle = HKDisplayerDisplayDefault;
 }
 
-- (void)test1{
+- (void)test1 {
     [HKDisplayer removeAll];
+}
+
+- (void)test2 {
+    UIView *view = [[UIView alloc]initWithFrame:(CGRect){0,0,300,20}];
+    view.backgroundColor = [UIColor redColor];
+    HKDisplayer *displayer = [HKDisplayer showView:view  animationStyle:HKDisplayerAnimationStyleUp];
+    displayer.displayStyle = HKDisplayerDisplayKeep;
 }
 
 #pragma mark - UITableViewDelegate
@@ -60,7 +66,7 @@
             break;
         }
         case 2: {
-//            [self test0];
+            [self test2];
             break;
         }
             

@@ -18,7 +18,8 @@ typedef NS_ENUM(NSInteger, HKDisplayerDisplay) {
 typedef NS_ENUM(NSInteger, HKDisplayerAnimationStyle) {
     HKDisplayerAnimationStyleNone = -1,
     HKDisplayerAnimationStyleDefault,
-    //    HKDisplayerAnimationStyle
+    HKDisplayerAnimationStyleUp,
+    HKDisplayerAnimationStyleDown
 };
 
 @interface HKDisplayer : UIView
@@ -32,14 +33,14 @@ typedef NS_ENUM(NSInteger, HKDisplayerAnimationStyle) {
  */
 + (instancetype)showView:(UIView *)view;
 
++ (instancetype)showView:(UIView *)view animationStyle:(HKDisplayerAnimationStyle)style;
+
 /**
  *  Remove all displayers
  */
 + (void)removeAll;
 
 @property (nonatomic, assign) HKDisplayerDisplay displayStyle;
-
-@property (nonatomic, assign) HKDisplayerAnimationStyle animationStyle;
 
 @property (nonatomic, assign) NSTimeInterval showTime;/**< default is 3 seconds*/
 

@@ -9,8 +9,10 @@
 #import "HKDisplayer.h"
 
 @interface HKDisplayerManager : NSObject
+
 @property (nonatomic, strong) NSMutableArray<HKDisplayer *> *showDisplayers;
 + (instancetype)shareManager;
+
 @end
 
 @implementation HKDisplayerManager
@@ -31,6 +33,8 @@
 
 @property (nonatomic, strong) UIView *displayedView;
 @property (nonatomic, weak) NSTimer *showTimer;
+@property (nonatomic, assign) BOOL keepOthers;
+@property (nonatomic, assign) HKDisplayerAnimationStyle animationStyle;
 
 @end
 
@@ -42,17 +46,28 @@
     return [self initWithFrame:[UIScreen mainScreen].bounds];
 }
 
-+ (instancetype)showView:(UIView *)view {
++ (instancetype)showView:(UIView *)view animationStyle:(HKDisplayerAnimationStyle)style {
     HKDisplayer *pop = [[self alloc]init];
     [[HKDisplayerManager shareManager].showDisplayers addObject:pop];
+    pop.animationStyle = style;
     pop.displayedView = view;
     [pop commonInit];
     return pop;
 }
 
++ (instancetype)showView:(UIView *)view {
+    return [self showView:view animationStyle:HKDisplayerAnimationStyleDefault];
+}
+
 - (void)commonInit {
-    self.showTime = 3;
     self.displayStyle = HKDisplayerDisplayDefault;
+    self.showTime = 3;
+    self.keepOthers = NO;
+}
+
+- (void)remove {
+    [self removeFromSuperview];
+    [[HKDisplayerManager shareManager].showDisplayers removeObject:self];
 }
 
 + (void)removeAll {
@@ -68,6 +83,13 @@
     for (HKDisplayer *displayer in [HKDisplayerManager shareManager].showDisplayers) {
         [displayer removeFromSuperview];
     }
+    [[HKDisplayerManager shareManager].showDisplayers removeAllObjects];
+}
+
+- (void)removeSubViews {
+    for (UIView *view in self.subviews) {
+        [view removeFromSuperview];
+    }
 }
 
 //-(void)dealloc {
@@ -77,6 +99,11 @@
 //-(void)removeFromSuperview {
 //    [super removeFromSuperview];
 //    [self invalidTimer];
+//}
+
+//- (void)addDisplayedView:(UIView *)view keepOthers:(BOOL)keep {
+//    self.keepOthers = keep;
+//    self.displayedView = view;
 //}
 
 #pragma mark - Timer
@@ -89,11 +116,6 @@
     }
 }
 
-- (void)remove {
-    [self removeFromSuperview];
-    [[HKDisplayerManager shareManager].showDisplayers removeObject:self];
-}
-
 - (void)invalidTimer {
     [self.showTimer invalidate];
     self.showTimer = nil;
@@ -101,9 +123,29 @@
 
 #pragma mark - Animation
 
-- (void)showWithAnimated:(HKDisplayerAnimationStyle)animated {
+- (void)showWithAnimated {
     
-    //TODO:多种show方式（上浮/下沉/弹出/淡入淡出）
+    switch (self.animationStyle) {
+        case HKDisplayerAnimationStyleNone: {
+            return;
+            break;
+        }
+        case HKDisplayerAnimationStyleDefault: {
+            [self defaultAnimation];
+            break;
+        }
+        case HKDisplayerAnimationStyleUp: {
+            [self upAnimation];
+            break;
+        }
+        case HKDisplayerAnimationStyleDown: {
+            [self downAnimation];
+            break;
+        }
+    }
+}
+
+- (void)defaultAnimation {
     CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
     animation.duration = 0.2;
     
@@ -113,6 +155,36 @@
     [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
     
     animation.values = values;
+    [_displayedView.layer addAnimation:animation forKey:nil];
+}
+
+- (void)upAnimation {
+    [self positionAnimationUp:YES];
+}
+
+- (void)downAnimation {
+    [self positionAnimationUp:NO];
+}
+
+- (void)positionAnimationUp:(BOOL)isUp {
+    
+    CGFloat yOffset;
+    if (!isUp) {
+        yOffset = - 20;
+    } else {
+        yOffset = 20;
+    }
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+    
+    CGRect rect = [self convertRect:_displayedView.frame toView:self.superview];
+    CGPoint toPoint = CGPointMake(rect.origin.x + rect.size.width /2, rect.origin.y + rect.size.height /2);
+    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(toPoint.x, toPoint.y + yOffset)];
+    animation.toValue = [NSValue valueWithCGPoint:toPoint];
+    
+    animation.duration = 0.3;
+    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
     [_displayedView.layer addAnimation:animation forKey:nil];
 }
 
@@ -133,7 +205,7 @@
 }
 
 - (void)setDisplayedView:(UIView *)displayedView {
-    if (_displayedView) {
+    if (_displayedView && !self.keepOthers) {
         [_displayedView removeFromSuperview];
         _displayedView = nil;
     }
@@ -144,9 +216,8 @@
     [self addSubview:_displayedView];
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     
-    [self showWithAnimated:HKDisplayerAnimationStyleDefault];
+    [self showWithAnimated];
 }
-
 
 - (void)setDisplayStyle:(HKDisplayerDisplay)displayStyle {
     _displayStyle = displayStyle;
