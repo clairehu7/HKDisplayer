@@ -135,11 +135,11 @@
             break;
         }
         case HKDisplayerAnimationStyleUp: {
-            [self upAnimation];
+            [self positionAnimationOffset:CGPointMake(0, 20)];
             break;
         }
         case HKDisplayerAnimationStyleDown: {
-            [self downAnimation];
+            [self positionAnimationOffset:CGPointMake(0, -20)];
             break;
         }
     }
@@ -158,28 +158,13 @@
     [_displayedView.layer addAnimation:animation forKey:nil];
 }
 
-- (void)upAnimation {
-    [self positionAnimationUp:YES];
-}
-
-- (void)downAnimation {
-    [self positionAnimationUp:NO];
-}
-
-- (void)positionAnimationUp:(BOOL)isUp {
-    
-    CGFloat yOffset;
-    if (!isUp) {
-        yOffset = - 20;
-    } else {
-        yOffset = 20;
-    }
+- (void)positionAnimationOffset:(CGPoint)offset {
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
     
     CGRect rect = [self convertRect:_displayedView.frame toView:self.superview];
-    CGPoint toPoint = CGPointMake(rect.origin.x + rect.size.width /2, rect.origin.y + rect.size.height /2);
-    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(toPoint.x, toPoint.y + yOffset)];
+    CGPoint toPoint = CGPointMake(rect.size.width /2, rect.size.height /2);
+    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(toPoint.x + offset.x, toPoint.y + offset.y)];
     animation.toValue = [NSValue valueWithCGPoint:toPoint];
     
     animation.duration = 0.3;
