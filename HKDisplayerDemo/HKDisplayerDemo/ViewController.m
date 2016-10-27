@@ -39,6 +39,7 @@
         [strongSelf test1];
     };
     HKDisplayer *displayer = [HKDisplayer showView:view animationStyle:HKDisplayerAnimationStyleDown];
+    displayer.haveGrayBg = YES;
     displayer.displayStyle = HKDisplayerDisplayDefault;
 }
 

@@ -35,7 +35,7 @@
 @property (nonatomic, weak) NSTimer *showTimer;
 @property (nonatomic, assign) BOOL keepOthers;
 @property (nonatomic, assign) HKDisplayerAnimationStyle animationStyle;
-
+@property (nonatomic, strong) UIButton *bgBtn;
 @end
 
 @implementation HKDisplayer
@@ -47,12 +47,12 @@
 }
 
 + (instancetype)showView:(UIView *)view animationStyle:(HKDisplayerAnimationStyle)style {
-    HKDisplayer *pop = [[self alloc]init];
-    [[HKDisplayerManager shareManager].showDisplayers addObject:pop];
-    pop.animationStyle = style;
-    pop.displayedView = view;
-    [pop commonInit];
-    return pop;
+    HKDisplayer *displayer = [[self alloc]init];
+    [[HKDisplayerManager shareManager].showDisplayers addObject:displayer];
+    displayer.animationStyle = style;
+    displayer.displayedView = view;
+    [displayer commonInit];
+    return displayer;
 }
 
 + (instancetype)showView:(UIView *)view {
@@ -63,10 +63,12 @@
     self.displayStyle = HKDisplayerDisplayDefault;
     self.showTime = 3;
     self.keepOthers = NO;
+    self.haveGrayBg = YES;
 }
 
 - (void)remove {
     [self removeFromSuperview];
+    [_bgBtn removeFromSuperview];
     [[HKDisplayerManager shareManager].showDisplayers removeObject:self];
 }
 
@@ -209,6 +211,25 @@
     if (_displayStyle == HKDisplayerDisplayKeep) {
         [self invalidTimer];
     }
+}
+
+- (void)setHaveGrayBg:(BOOL)haveGrayBg {
+    _haveGrayBg = haveGrayBg;
+    if (_haveGrayBg) {
+        [self bgBtn];
+    } else {
+        [_bgBtn removeFromSuperview];
+    }
+}
+
+- (UIButton *)bgBtn {
+    if (!_bgBtn) {
+        _bgBtn = [[UIButton alloc]initWithFrame:[UIApplication sharedApplication].keyWindow.bounds];
+        _bgBtn.backgroundColor = [UIColor colorWithWhite:.2 alpha:.7];
+        [[UIApplication sharedApplication].keyWindow addSubview:_bgBtn];
+        [[UIApplication sharedApplication].keyWindow bringSubviewToFront:self];
+    }
+    return _bgBtn;
 }
 
 @end

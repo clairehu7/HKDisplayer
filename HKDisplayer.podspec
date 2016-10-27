@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "HKDisplayer"
-  s.version      = "0.0.0"
+  s.version      = "0.0.1"
   s.summary      = "加在 window 上的弹出视图"
   s.description  = <<-DESC
                     加在 widow 上的弹出视图，可以自定义弹出方式，自定义停留时间及类型。

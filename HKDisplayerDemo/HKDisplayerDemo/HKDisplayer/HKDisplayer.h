@@ -44,4 +44,6 @@ typedef NS_ENUM(NSInteger, HKDisplayerAnimationStyle) {
 
 @property (nonatomic, assign) NSTimeInterval showTime;/**< default is 3 seconds*/
 
+@property (nonatomic, assign) BOOL haveGrayBg;/**< default is NO*/
+
 @end
