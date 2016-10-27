@@ -226,6 +226,7 @@
     if (!_bgBtn) {
         _bgBtn = [[UIButton alloc]initWithFrame:[UIApplication sharedApplication].keyWindow.bounds];
         _bgBtn.backgroundColor = [UIColor colorWithWhite:.2 alpha:.7];
+        [_bgBtn addTarget:self action:@selector(remove) forControlEvents:UIControlEventTouchUpInside];
         [[UIApplication sharedApplication].keyWindow addSubview:_bgBtn];
         [[UIApplication sharedApplication].keyWindow bringSubviewToFront:self];
     }
