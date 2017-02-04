@@ -40,7 +40,10 @@
     };
     HKDisplayer *displayer = [HKDisplayer showView:view animationStyle:HKDisplayerAnimationStyleDown];
     displayer.haveGrayBg = YES;
-    displayer.displayStyle = HKDisplayerDisplayDefault;
+    displayer.cancleHandler = ^{
+        NSLog(@"已移除");
+    };
+    displayer.displayStyle = HKDisplayerDisplayKeep;
 }
 
 - (void)test1 {

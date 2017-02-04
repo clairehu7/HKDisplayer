@@ -67,6 +67,7 @@
 }
 
 - (void)remove {
+    !_cancleHandler?:_cancleHandler();
     [self removeFromSuperview];
     [_bgBtn removeFromSuperview];
     [[HKDisplayerManager shareManager].showDisplayers removeObject:self];
