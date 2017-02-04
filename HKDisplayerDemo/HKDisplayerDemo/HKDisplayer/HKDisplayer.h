@@ -46,6 +46,6 @@ typedef NS_ENUM(NSInteger, HKDisplayerAnimationStyle) {
 
 @property (nonatomic, assign) BOOL haveGrayBg;/**< default is NO*/
 
-@property (nonatomic, copy) dispatch_block_t cancleHandler;/**< with GrayBg*/
+@property (nonatomic, copy) dispatch_block_t cancelHandler;/**< with GrayBg*/
 
 @end

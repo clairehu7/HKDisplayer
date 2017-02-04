@@ -73,7 +73,7 @@
 }
 
 - (void)remove {
-    !_cancleHandler?:_cancleHandler();
+    !_cancelHandler?:_cancelHandler();
     [self removeFromSuperview];
 }
 
