@@ -16,10 +16,11 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "HKDisplayer"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "加在 window 上的弹出视图"
   s.description  = <<-DESC
                     加在 widow 上的弹出视图，可以自定义弹出方式，自定义停留时间及类型。
+                                    0.0.2 增加功能：取消 displayer 的灰色遮罩选项。
                    DESC
 
   s.homepage     = "https://github.com/clairehu7/HKDisplayer"
@@ -74,7 +75,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/clairehu7/HKDisplayer.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/clairehu7/HKDisplayer.git", :tag => "0.0.2" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
