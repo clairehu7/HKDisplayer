@@ -66,11 +66,15 @@
     self.haveGrayBg = YES;
 }
 
+- (void)removeFromSuperview {
+    [super removeFromSuperview];
+    [_bgBtn removeFromSuperview];
+    [[HKDisplayerManager shareManager].showDisplayers removeObject:self];
+}
+
 - (void)remove {
     !_cancleHandler?:_cancleHandler();
     [self removeFromSuperview];
-    [_bgBtn removeFromSuperview];
-    [[HKDisplayerManager shareManager].showDisplayers removeObject:self];
 }
 
 + (void)removeAll {
